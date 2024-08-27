@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 
@@ -92,13 +93,13 @@ WSGI_APPLICATION = 'project_bug_tracking.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-import environ
+from environ import Env
 
 # Initialize environment variables
-env = environ.Env()
+env = Env()
 
 # Read the .env file
-environ.Env.read_env()
+env.read_env()
 
 DATABASES = {
     'default': {

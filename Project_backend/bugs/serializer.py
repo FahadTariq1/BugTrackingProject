@@ -2,7 +2,7 @@ from company_users.models import CompanyUser
 from rest_framework import serializers
 
 class BugsSearchByProjectSerializer(serializers.Serializer):
-
+    id =serializers.IntegerField()
     description = serializers.CharField()
     bug_type = serializers.CharField()
     due_date = serializers.DateField()

@@ -27,7 +27,7 @@ class Bug(TimeStampedModel):
     assigneduser = models.ForeignKey(
         CompanyUser,
         on_delete=models.CASCADE,
-        related_name='bug_user'
+        related_name='user_detials'
     )
      
     due_date = models.DateField(blank=True, default=timezone.now)
