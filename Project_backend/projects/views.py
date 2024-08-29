@@ -3,13 +3,9 @@ from rest_framework.views import APIView
 from projects.models import Project
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
-from rest_framework import status
-from projects.serializer import ProjectDetailsSerializer
-from projects.serializer import ProjectCreationSerializer
+from projects.serializer import ProjectDetailsSerializer,ProjectCreationSerializer
 from django.utils.decorators import method_decorator 
-from projects.decorators import check_user_access2
-from projects.decorators import validated_user
+from projects.decorators import check_manager_access,validated_user
 
 
 class ProjectDetails(APIView):
@@ -31,7 +27,7 @@ class ProjectDetails(APIView):
 
 
 class ProjectCreation(APIView):
-    @method_decorator(check_user_access2, name="dispatch")
+    @method_decorator(check_manager_access, name="dispatch")
     def post(self, request):
         serializer = ProjectCreationSerializer(data=request.data)
         if serializer.is_valid():

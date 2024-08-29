@@ -47,30 +47,32 @@ INSTALLED_APPS = [
     'company_users',
     'projects',
     'bugs',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     
 ]
 
 
 
 ROOT_URLCONF = 'project_bug_tracking.urls'
+
 CORS_ALLOW_ALL_ORIGINS = True 
 
 CORS_ALLOW_HEADERS = [
-    'Authorization',
+    'authorization',
+    'content-type',
 ]
 TEMPLATES = [
     {

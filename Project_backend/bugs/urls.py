@@ -1,11 +1,10 @@
 from django.urls import path
-from bugs.views import BugSearch
-from bugs.views import BugCreation
-from bugs.views import BugUpdate
+from bugs.views import BugSearch,BugCreation,BugUpdate,BugDelete
 urlpatterns=[
-   path('search-bugs/',BugSearch.as_view(),name = "search-bugs"),
-   path('create-bug/',BugCreation.as_view(),name = "create-bug"),
-   path('update-bug/<int:bug_id>/', BugUpdate.as_view(), name='bug-update')
+   path('search/',BugSearch.as_view(),name = "search-bugs"),
+   path('create/',BugCreation.as_view(),name = "create-bug"),
+   path('update/<int:bug_id>/', BugUpdate.as_view(), name='bug-update'),
+   path('delete/<int:bug_id>/', BugDelete.as_view(), name='bug-delete')
 ]
 
 

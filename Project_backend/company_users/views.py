@@ -1,11 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from company_users.serializer import SignUpSerializer
-from company_users.serializer import LoginSerializer
-from company_users.serializer import AllDeveloperSerializer
+from company_users.serializer import SignUpSerializer,LoginSerializer,AllDeveloperSerializer
 from company_users.models import CompanyUser
-from django.contrib.auth.hashers import make_password,check_password
+from django.contrib.auth.hashers import make_password, check_password
 from company_users.authentication import auth
 from projects.decorators import check_user_access
 from django.utils.decorators import method_decorator 
@@ -16,8 +14,8 @@ class Signup(APIView):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['password'] = make_password(serializer.validated_data['password'])
-            user = CompanyUser.objects.create(
-                username=serializer.validated_data['username'],
+            CompanyUser.objects.create(
+                name=serializer.validated_data['name'],
                 email=serializer.validated_data['email'],
                 password=serializer.validated_data['password'],
                 type=serializer.validated_data['type'],
@@ -50,14 +48,14 @@ class Login(APIView):
         
         
 class AllDeveloper(APIView):
-    @method_decorator(check_user_access,name="dispatch")
+    @method_decorator(check_user_access, name="dispatch")
     def get(self, request):
         try:
-            bug_developers = CompanyUser.objects.filter(type='developer')
-            if not bug_developers.exists():
+            developers = CompanyUser.objects.filter(type='developer')
+            if not developers.exists():
                 return Response({'message': 'No developers available'}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = AllDeveloperSerializer(bug_developers, many=True)
+            serializer = AllDeveloperSerializer(developers, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         except Exception as e:

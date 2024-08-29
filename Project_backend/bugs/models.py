@@ -18,16 +18,16 @@ class Bug(TimeStampedModel):
     title = models.CharField(max_length=255)
     description = models.TextField()
     screenshot_type = models.CharField(max_length=3, choices=SCREENSHOT_CHOICES, blank=True, null=True)
-    bug_type = models.CharField(max_length=20, choices=BUG_CHOICES, default='pending')
+    status = models.CharField(max_length=20, choices=BUG_CHOICES, default='pending')
     assignedproject = models.ForeignKey(
         Project, 
         on_delete=models.CASCADE,
-        related_name='project_details'
+        related_name='related_bugs'
     )
     assigneduser = models.ForeignKey(
         CompanyUser,
         on_delete=models.CASCADE,
-        related_name='user_detials'
+        related_name='assigned_bugs'
     )
      
     due_date = models.DateField(blank=True, default=timezone.now)
